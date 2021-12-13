@@ -80,19 +80,15 @@ class Employer(models.Model):
 
 
 class Employee(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        primary_key=True
-    )
-    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
     # employee 'belongs' to employer
     employer = models.ForeignKey(Employer, on_delete=models.CASCADE)
 
 
     # Employee Details
     STATUS_CHOICES = (('Provided', 'Provided'),('Submitted', 'Submitted'),)
-    
+
     LANGUAGE = (('english','ENGLISH'),('yoruba','YORUBA'),('hausa','HAUSA'),('french','FRENCH'))
     GENDER = (('male','MALE'), ('female', 'FEMALE'),('other', 'OTHER'))
     emp_id = models.CharField(max_length=70, default='emp'+str(random.randrange(100,999,1)))
@@ -114,7 +110,7 @@ class Employee(models.Model):
 
     
     def __str__(self):
-        return self.user.email
+        return self.email
 
 
 class Document(models.Model):

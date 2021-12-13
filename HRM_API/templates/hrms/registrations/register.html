@@ -1,34 +1,154 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    
-    <!-- adding jquery CSS -->
-    <link rel="stylesheet" href="css/all.min.css">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Adding CSS  -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
+  <!-- adding jquery CSS -->
+  <!-- <link rel="stylesheet" href="css/all.min.css"> -->
 
-    <!-- Optional JavaScript; choose one of the two! -->
+  <!-- Adding CSS  -->
+  <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
 
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="{% static 'js/jquery.js' %}"></script>
+  <title>Registration Form</title>
+</head>
+
+<body>
+
+  <div class="container">
+    <form method="post" enctype='multipart/form-data'>
+      {% csrf_token %}
+      {{form.errors}}
+      <div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+        <h2>User Registration form</h2>
+        <p class="lead">First Register then your abel to use it.</p>
+      </div>
+      <div class="container">
+        <div class="row g-5 justify-content-md-center">
+
+
+          <div class="col-md-7 center col-lg-8">
+            <h4 class="mb-3">Register with some information</h4>
+            <form class="needs-validation" novalidate>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label for="firstName" class="form-label">First name</label>
+                  {{form.first_name}}
+                  <div class="invalid-feedback">
+                    Valid first name is required.
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <label for="lastName" class="form-label">Last name</label>
+                  {{form.last_name}}
+                  <div class="invalid-feedback">
+                    Valid last name is required.
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <label for="username" class="form-label">Username</label>
+                  {{form.username}}
+                  <div class="invalid-feedback">
+                    Your username is required.
+                  </div>
+
+                </div>
+
+                <div class="col-12">
+                  <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text">@</span>
+                    {{form.email}}
+                    <div class="invalid-feedback">
+                      Please enter a valid email address for shipping updates.
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-12">
+                  <label for="address" class="form-label">Password</label>
+                  {{form.password1}}
+                  <div class="invalid-feedback">
+                    Please enter your shipping address.
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <label for="address2" class="form-label">Confirm Password <span
+                      class="text-muted">(Optional)</span></label>
+                  {{form.password2}}
+                </div>
+
+                <div class="input-group mb-3">
+                  {{form.thumb}}
+                  <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                </div>
+
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Submit Form</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 text-block text-center my-3">
+        <span class="text-small font-weight-semibold">Already have and account ?</span>
+        <a href="{%  url 'hrms:login'  %}" class="text-black text-small">Login</a>
+      </div>
+    </form>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">&copy; 2017–2021 Company Name</p>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a href="#">Privacy</a></li>
+        <li class="list-inline-item"><a href="#">Terms</a></li>
+        <li class="list-inline-item"><a href="#">Support</a></li>
+      </ul>
+    </footer>
+  </div>
+
+
+  <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+  <script src="form-validation.js"></script>
+
+  <!-- Optional JavaScript; choose one of the two! -->
+
+  <!-- Option 1: Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+  <!-- Option 2: Separate Popper and Bootstrap JS -->
+  <!-- -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+    crossorigin="anonymous"></script>
+
+
+
+
+  <!-- <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/popper.js' %}"></script>
     <script src="{% static 'js/all.min.js' %}"></script>   <!-- Adding for FontAwesome -->
-    <script src="{% static 'js/bootstrap.js' %}"></script>
-   
-  </body>
+  <!-- <script src="{% static 'js/bootstrap.js' %}"></script> --> -->
+
+</body>
+
 </html>

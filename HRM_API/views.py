@@ -5,7 +5,8 @@ from django.shortcuts import render
 from django.shortcuts import render,redirect, resolve_url,reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
-from . models import Employee, Department, Attendance, Leave
+from django.views.generic.base import RedirectView
+
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -22,12 +23,15 @@ from django.db.models import Q
 class Index(TemplateView):
    template_name = 'hrms/home/home.html'
 
+class About(TemplateView):
+   template_name = 'hrms/dashboard/about.html'
+
 #   Authentication
 class Register (CreateView):
     model = get_user_model()
     form_class  = RegistrationForm
     template_name = 'hrms/registrations/register.html'
-    # success_url = reverse_lazy('hrms:login')
+    success_url = reverse_lazy('hrm:login')
     
 class Login_View(LoginView):
     model = get_user_model()
@@ -38,16 +42,16 @@ class Login_View(LoginView):
         url = resolve_url('hrms:dashboard')
         return url
 
-class Logout_View(View):
+class Logout_View(RedirectView):
 
     def get(self,request):
         logout(self.request)
-        return redirect ('hrms:login',permanent=True)
+        return redirect ('hrms:login')
     
     
 #  Main Board   
 class Dashboard(LoginRequiredMixin,ListView):
-    template_name = 'hrms/dashboard/index.html'
+    template_name = 'hrms/dashboard/dashboard.html'
     login_url = 'hrms:login'
     model = get_user_model()
     context_object_name = 'qset'            

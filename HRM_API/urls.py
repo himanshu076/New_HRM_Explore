@@ -12,4 +12,9 @@ urlpatterns = [
 
     path('about/', views.About.as_view(), name='about'),
 
+    # Employee Routes
+    path('dashboard/employee/all', views.Employee_All.as_view(), name='employee_all'),    
+    path('dashboard/employee/new', views.Employee_New.as_view(), name='employee_new'),    
+    path('dashboard/employee/view/', views.Employee_View.as_view(), name='employee_view'),
+
 ]

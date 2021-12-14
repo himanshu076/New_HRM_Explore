@@ -49,15 +49,15 @@
             <a class="nav-link" href="{% url 'hrm:about' %}">About Us</a>
           </li>
 
-
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
               data-bs-toggle="dropdown" aria-expanded="false">
-              Link
+              Employee
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="{% url 'hrms:employee_all' %}">All Employee</a></li>
+              <li><a class="dropdown-item" href="{% url 'hrms:employee_new' %}">New Employee</a></li>
+              <li><a class="dropdown-item" href="{% url 'hrms:employee_view' emp.id %}">View Employee</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
@@ -65,34 +65,37 @@
             </ul>
           </li>
 
-          
-            <li class='active'>Home</li>
-            <li>
-              <div class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Personal asset loans</a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">            
-                  <li><a href="#">asds</a></li>
-                  <li class="divider"></li>
-                </ul>
-              </div>   
-              </li>
-              <li>Payday loans</li>
-            <li>About</li>
-            <li>Contact</li>
-          
-
-
-
-
         </ul>
-        <div>
-          <a class="btn btn-primary" href="{% url 'hrms:logout' %}">
-            Log Out
-          </a>
-        </div>
       </div>
 
-    </div>
+      <div class=" row justify-content-md-center ">
+        <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              {{user.username}}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+              <li><a class="dropdown-item" href="">All Employee</a></li>
+              <li><a class="dropdown-item" href="{% url 'hrms:employee_new' %}">New Employee</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="btn btn-primary" href="{% url 'hrms:logout' %}">
+                  Log Out
+                </a></li>
+            </ul>
+          </li>
+
+        </ul>
+
+      </div>
+
+
+
+
+
     </div>
   </nav>
 
@@ -104,17 +107,15 @@
 
   {% endblock content %}
 
-  <!-- Optional JavaScript; choose one of the two! -->
-
   <!-- Option 1: Bootstrap Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-
+  <!-- 
   <script src="{% static 'js/jquery.js' %}"></script>
   <script src="{% static 'js/popper.js' %}"></script>
-  <script src="{% static 'js/all.min.js' %}"></script> <!-- Adding for FontAwesome -->
-  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <script src="{% static 'js/all.min.js' %}"></script> <!-- Adding for FontAwesome
+  <script src="{% static 'js/bootstrap.js' %}"></script> -->
 
 </body>
 

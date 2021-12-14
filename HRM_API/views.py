@@ -6,7 +6,7 @@ from django.shortcuts import render,redirect, resolve_url,reverse, get_object_or
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.views.generic.base import RedirectView
-
+from HRM_API.models import Employee, Department
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -37,6 +37,8 @@ class Login_View(LoginView):
     model = get_user_model()
     form_class = LoginForm
     template_name = 'hrms/registrations/login.html'
+    redirect_authenticated_user = True
+    
 
     def get_success_url(self):
         url = resolve_url('hrms:dashboard')
@@ -57,42 +59,52 @@ class Dashboard(LoginRequiredMixin,ListView):
     context_object_name = 'qset'            
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) 
-        # context['emp_total'] = Employee.objects.all().count()
-        # context['dept_total'] = Department.objects.all().count()
-        # context['admin_count'] = get_user_model().objects.all().count()
+        context['emp_total'] = Employee.objects.all().count()
+        context['dept_total'] = Department.objects.all().count()
+        context['admin_count'] = get_user_model().objects.all().count()
         # context['workers'] = Employee.objects.order_by('-id')
         return context
 
-# # Employee's Controller
-# class Employee_New(LoginRequiredMixin,CreateView):
-#     model = Employee  
-#     form_class = EmployeeForm  
-#     template_name = 'hrms/employee/create.html'
-#     login_url = 'hrms:login'
-#     redirect_field_name = 'redirect:'
+# Employee's Controller
+class Employee_New(LoginRequiredMixin,CreateView):
+    model = Employee  
+    form_class = EmployeeForm  
+    template_name = 'hrms/employee/create.html'
+    login_url = 'hrms:login'
+    redirect_field_name = 'redirect:'
     
     
-# class Employee_All(LoginRequiredMixin,ListView):
-#     template_name = 'hrms/employee/index.html'
-#     model = Employee
-#     login_url = 'hrms:login'
-#     context_object_name = 'employees'
-#     paginate_by  = 5
+class Employee_All(LoginRequiredMixin,ListView):
+    template_name = 'hrms/employee/index.html'
+    model = Employee
+    login_url = 'hrms:login'
+    context_object_name = 'employees'
+    paginate_by  = 5
     
-# class Employee_View(LoginRequiredMixin,DetailView):
-#     queryset = Employee.objects.select_related('department')
-#     template_name = 'hrms/employee/single.html'
-#     context_object_name = 'employee'
-#     login_url = 'hrms:login'
+class Employee_View(LoginRequiredMixin,DetailView):
+    queryset = Employee.objects.select_related('department')
+    template_name = 'hrms/employee/single.html'
+    context_object_name = 'employee'
+    login_url = 'hrms:login'
     
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         try:
-#             query = Kin.objects.get(employee=self.object.pk)
-#             context["kin"] = query
-#             return context
-#         except ObjectDoesNotExist:
-#             return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = super().get_context_data()
+        if 'id' in self.kwargs:
+            emp = Employee.objects.get(pk=self.kwargs['id'])
+            context['emp'] = emp
+            return context
+        else:
+            return context
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     try:
+    #         query = Employee.objects.get(pk=id)
+    #         context["employee"] = query
+    #         return context
+    #     except ObjectDoesNotExist:
+    #         return context
         
 # class Employee_Update(LoginRequiredMixin,UpdateView):
 #     model = Employee
@@ -135,7 +147,7 @@ class Dashboard(LoginRequiredMixin,ListView):
             
 #             return initial
 
-# #Department views
+# Department views
 
 # class Department_Detail(LoginRequiredMixin, ListView):
 #     context_object_name = 'employees'

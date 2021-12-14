@@ -18,16 +18,10 @@ class User(AbstractUser):
     is_employee = models.BooleanField(default=False)
     
     # role of the user
-    position = models.CharField(max_length=200, default=None, blank=True, null=True)
-    
-    # # phone number
-    # phone_number = models.CharField(max_length=15, blank=False)
+    # position = models.CharField(max_length=200, default=None, blank=True, null=True)
     
     # date of birth
     date_of_birth = models.DateField(default=None, blank=True, null=True)
-    
-    # # national ID
-    # national_id = models.CharField(max_length=15, default=None, blank=True, null=True)
     
     # KRA PIN
     # kra_pin = models.CharField(max_length=50, default=None, blank=True, null=True)
@@ -80,7 +74,8 @@ class Employer(models.Model):
 
 
 class Employee(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # employee 'belongs' to employer
     employer = models.ForeignKey(Employer, on_delete=models.CASCADE)
@@ -89,15 +84,15 @@ class Employee(models.Model):
     # Employee Details
     STATUS_CHOICES = (('Provided', 'Provided'),('Submitted', 'Submitted'),)
 
-    LANGUAGE = (('english','ENGLISH'),('yoruba','YORUBA'),('hausa','HAUSA'),('french','FRENCH'))
+    LANGUAGE = (('english','ENGLISH'),('hindi','HINDI'),('gujarati','GUJARATI'),('marathi','MARATHI'))
     GENDER = (('male','MALE'), ('female', 'FEMALE'),('other', 'OTHER'))
-    emp_id = models.CharField(max_length=70, default='emp'+str(random.randrange(100,999,1)))
     thumb = models.ImageField(blank=True,null=True)
     first_name = models.CharField(max_length=50, null=False)
     last_name = models.CharField(max_length=50, null=False)
+    position = models.CharField(max_length=200, default=None, blank=True, null=True)
     mobile = models.CharField(max_length=15)
     email = models.EmailField(max_length=125, null=False)
-    current_ddress = models.TextField(max_length=100, default='')
+    current_address = models.TextField(max_length=100, default='')
     permanent_address = models.TextField(max_length=100, default='')
     emergency = models.CharField(max_length=11)
     gender = models.CharField(choices=GENDER, max_length=10)
@@ -105,7 +100,7 @@ class Employee(models.Model):
     joined = models.DateTimeField(default=timezone.now)
     language = models.CharField(choices=LANGUAGE, max_length=10, default='english')
     document_status = models.CharField(max_length=55,choices=STATUS_CHOICES,null=True)
-    bank = models.CharField(max_length=25, default='First Bank Plc')
+    bank = models.CharField(max_length=25, default='Baank Name')
     salary = models.CharField(max_length=16,default='00,000.00') 
 
     
